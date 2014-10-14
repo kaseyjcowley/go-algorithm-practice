@@ -5,4 +5,4 @@ Simple algorithmic implementations in Go. Helps to solidify algorithm principles
 
 Currently includes:
 
-* `Quicksort(array []int)
+* `Quicksort(array []int)`
