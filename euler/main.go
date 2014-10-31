@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	// "math"
+	"math"
 )
 
 // A Euler problem is a func with no params or return value
@@ -70,11 +70,42 @@ func EvenFibbonacciNumbers() int {
 	return accum
 }
 
+// Helper function for largest prime factor
+func isPrime(number int) bool {
+	sqrt := int(math.Sqrt(float64(number)))
+
+	for i := 2; i <= sqrt; i++ {
+		if number%i == 0 {
+			return false
+		}
+	}
+
+	return true
+}
+
 // Project three of project Euler
 // The prime factors of 13195 are 5, 7, 13 and 29.
 // What is the largest prime factor of the number 600851475143
 func LargestPrimeFactor() int {
-	return 0
+	number := 600851475143
+	sqrt := int(math.Sqrt(float64(number)))
+	dividend := number
+
+loop1:
+	for {
+		for i := 2; i < sqrt; i++ {
+			// If we have an even division
+			if dividend%i == 0 {
+				// Divide the number by the current index in the prime loop
+				dividend /= i
+				if isPrime(dividend) {
+					return dividend
+				} else {
+					continue loop1
+				}
+			}
+		}
+	}
 }
 
 func main() {
@@ -84,5 +115,5 @@ func main() {
 	e.Add(EvenFibbonacciNumbers)
 	e.Add(LargestPrimeFactor)
 
-	fmt.Printf("The answer to problem 1 is %d\n", e.Call(1))
+	fmt.Printf("The answer to problem 3 is %d\n", e.Call(3))
 }

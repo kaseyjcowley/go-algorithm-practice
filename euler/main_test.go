@@ -12,3 +12,12 @@ func TestMultiplesOf3And5(t *testing.T) {
 		t.Errorf("Expected %d, got %d\n", correct, answer)
 	}
 }
+
+func TestLargestPrimeFactor(t *testing.T) {
+	correct := 6857
+	answer := LargestPrimeFactor()
+
+	if correct != answer {
+		t.Errorf("Expected %d, got %d\n", correct, answer)
+	}
+}
