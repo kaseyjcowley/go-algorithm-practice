@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"math"
+	"sort"
+	"strconv"
+	"strings"
 )
 
 // A Euler problem is a func with variadic params or return value
@@ -111,7 +114,31 @@ loop1:
 // Project four of project Euler
 // A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 // Find the largest palindrome made from the product of two 3-digit numbers.
+
+func isPalindrome(number int) bool {
+	str := strings.Split(strconv.Itoa(number), "")
+	sort.Reverse(sort.StringSlice(str))
+	fmt.Println(str)
+	pal, err := strconv.Atoi(strings.Join(str, ""))
+	if err != nil {
+		fmt.Errorf("Failure to convert string to int with Atoi(s): %q", err)
+	}
+
+	return number == pal
+}
+
 func LargestPalindromeProduct(args ...int) int {
+	product := 0
+
+	for x := 99; x >= 10; x-- {
+		for y := 99; y >= 10; y-- {
+			product = x * y
+			if isPalindrome(product) {
+				return product
+			}
+		}
+	}
+
 	return 0
 }
 
@@ -121,6 +148,7 @@ func main() {
 	e.Add(MultiplesOf3And5)
 	e.Add(EvenFibbonacciNumbers)
 	e.Add(LargestPrimeFactor)
+	e.Add(LargestPalindromeProduct)
 
-	fmt.Printf("The answer to problem 2 is %d\n", e.Call(2, 4000000))
+	fmt.Printf("The answer to problem 4 is %d\n", e.Call(4))
 }
